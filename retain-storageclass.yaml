@@ -2,8 +2,16 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
  name: rger-retain-ebs
-provisioner: ebs.csi.aws.com
+provisioner: ebs.csi.aws.com # Uses AWS EBS CSI driver to provision storage
 parameters:
- type: io1
- iopsPerGB: "50"
-reclaimPolicy: Retain
+ type: io1                   # Specifies Provisioned IOPS SSD volume type
+ iopsPerGB: "50"             # Sets 50 IOPS per GB for the volumes
+reclaimPolicy: Retain        # Volumes won't be deleted when PVCs are deleted
+
+# To actually create storage, you would:
+
+# Create this StorageClass first, already defined here
+# Create a PersistentVolumeClaim (PVC) that references this StorageClass
+# Then Kubernetes will automatically provision an EBS volume according to the specifications when a pod requests the PVC
+
+# This approach allows for dynamic provisioning of storage with consistent configuration across your cluster.
