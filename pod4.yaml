@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rger-pod4
+spec:
+  containers:
+  - name: rger-container
+    image: busybox
+    command: ["/bin/sh", "-c", "while true; do echo [$(date):$HOSTNAME] Hello >> /mnt/data/hello.txt; sleep 5; done"]
+    volumeMounts:
+    - mountPath: /mnt/data
+      name: rger-volume
+  volumes:
+  - name: rger-volume
+    persistentVolumeClaim:
+      claimName: rger-pvc
