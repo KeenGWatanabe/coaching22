@@ -8,4 +8,4 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  storageClassName: rger-retain-ebs
+  storageClassName: rger-retain-ebs # Modified to match your custom StorageClass
